@@ -33,6 +33,10 @@ immutable Mul{A <: Measure} <: ScalarOp{A}
     b::Number
 end
 
+immutable Ceiling{A <: Measure} <: UnaryOp{A}
+	a::A
+end
+
 # Easy simplifications
 # TODO: Add more simplifications
 Neg(x::Neg) = x.a
@@ -48,4 +52,5 @@ iszero(x::Measure) = false
 @compat Base.:*(a::Number, b::Measure) = Mul(b, a)
 Base.min(a::Measure, b::Measure) = Min(a, b)
 Base.max(a::Measure, b::Measure) = Max(a, b)
+Base.ceil(a::Measure) = Ceiling(a)
 
